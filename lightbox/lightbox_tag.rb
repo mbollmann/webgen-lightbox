@@ -6,11 +6,17 @@ module Webgen
   class Tag
     module Lightbox
       def self.call(tag, body, context)
+        if context[:config]['tag.lightbox.thumbnail-img'].nil?
+          thumbnail = context[:config]['tag.lightbox.img']
+        else
+          thumbnail = context[:config]['tag.lightbox.thumbnail-img']
+        end
+
         # begin insert link
         result = "["
         # begin insert image
         result << "![" << context[:config]['tag.lightbox.title'] << "]"
-        result << "(" << context[:config]['tag.lightbox.img'] << ")"
+        result << "(" << thumbnail << ")"
         result << "{: width=\"" << context[:config]['tag.lightbox.thumbnail-width'] << "\""
         if(context[:config]['tag.lightbox.img-padding'])
           result << " style=\"padding-bottom: "
